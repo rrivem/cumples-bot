@@ -1,3 +1,4 @@
+require('./polyfill');
 const { getList } = require('./spreadsheet');
 const runChecks = require('./run-checks');
 const notification = require('./notification');
