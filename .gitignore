@@ -1,5 +1,5 @@
 node_modules/
 credentials.json
 config.private.json
-run-today.json
+run-checks.json
 yarn.lock

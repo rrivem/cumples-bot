@@ -1,20 +1,37 @@
 const { getList } = require('./spreadsheet');
-const { shouldRunToday, dontRunToday, sameDate } = require('./run-today');
+const runChecks = require('./run-checks');
 const notification = require('./notification');
 const config = require('./config');
 
-if (!sameDate(new Date(), shouldRunToday())) {
+if (!runChecks.isSameDate(new Date(), runChecks.lastShouldRunToday)) {
 	getList().then(({ people, list }) => {
 		const now = new Date();
-		if (!list.some(i => sameDate(i.time, now))) {
-			dontRunToday(now);
+		todayList = list.filter(i => runChecks.isSameDate(i.time, now));
+
+		if (!todayList.length) {
+			runChecks.lastShouldRunToday = now;
 		} else {
-			list.forEach(({ time, person }) => {
-				const minsToGo = (time - now) / 60000;
-				if (minsToGo > 0 && minsToGo < config.minsBeforeNotice) {
-					const user = people.find(p => p.name === person);
-					notification.itsTime(user, Math.floor(minsToGo));
+			notification.setup().then(() => {
+				if (
+					!runChecks.isSameDate(now, runChecks.lastDayReminderSent) &&
+					now.getHours() >= config.dayReminderHour
+				) {
+					// notify today is massage day
+					todayList.forEach(({ time, person }) => {
+						const user = people.find(p => p.name === person);
+						notification.dayReminder(user, time);
+					});
+					runChecks.lastDayReminderSent = now;
 				}
+
+				// notify when it's time
+				todayList.forEach(({ time, person }) => {
+					const minsToGo = (time - now) / 60000;
+					if (minsToGo > 0 && minsToGo < config.minsBeforeNotice) {
+						const user = people.find(p => p.name === person);
+						notification.itsTime(user, Math.floor(minsToGo));
+					}
+				});
 			});
 		}
 	});

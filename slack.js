@@ -3,17 +3,30 @@ const FormData = require('form-data');
 const config = require('./config').slack;
 
 class SlackService {
+	setup() {
+		return this.getUsers();
+	}
+
 	getUsers() {
-		return fetch(`${config.host}/users.list?token=${config.token}`)
-			.then(res => res.json())
-			.then(json =>
-				json.members.filter(m => !m.deleted && !!m.profile.email).map(u => ({
-					id: u.id,
-					email: u.profile.email,
-					name: u.name,
-					realName: u.real_name
-				}))
-			);
+		const self = this;
+		if (self.users) {
+			return Promise.resolve(self.users);
+		} else {
+			return fetch(`${config.host}/users.list?token=${config.token}`)
+				.then(res => res.json())
+				.then(json =>
+					json.members.filter(m => !m.deleted && !!m.profile.email).map(u => ({
+						id: u.id,
+						email: u.profile.email,
+						name: u.name,
+						realName: u.real_name
+					}))
+				)
+				.then(result => {
+					self.users = result;
+					return result;
+				});
+		}
 	}
 
 	findUser(email) {

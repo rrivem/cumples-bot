@@ -12,7 +12,8 @@ const base = {
 		host: 'https://slack.com/api',
 		token: private.slack.token
 	},
-	minsBeforeNotice: 20
+	minsBeforeNotice: 20,
+	dayReminderHour: 8
 };
 
 const configData = {

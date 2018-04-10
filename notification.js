@@ -2,7 +2,11 @@ const slack = require('./slack');
 const bot = require('./bot');
 
 class NotificationService {
-	itsTime(user, minsToGo) {
+	setup() {
+		return slack.setup();
+	}
+
+	send(user, message) {
 		return slack
 			.findUser(user.mail)
 			.then(slackUser => {
@@ -12,8 +16,16 @@ class NotificationService {
 					return slack.imOpen(slackUser.id);
 				}
 			})
-			.then(channelId => slack.postMessage(channelId, bot.itsTime(user, minsToGo)))
+			.then(channelId => slack.postMessage(channelId, message))
 			.catch(err => console.error('Error connecting to Slack', err));
+	}
+
+	dayReminder(user, time) {
+		return this.send(user, bot.dayReminder(user, time));
+	}
+
+	itsTime(user, minsToGo) {
+		return this.send(user, bot.itsTime(user, minsToGo));
 	}
 }
 
