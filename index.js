@@ -20,7 +20,9 @@ if (!runChecks.isSameDate(new Date(), runChecks.lastShouldRunToday)) {
 					// notify today is massage day
 					todayList.forEach(({ time, person }) => {
 						const user = people.find(p => p.name === person);
-						notification.dayReminder(user, time);
+						if (user) {
+							notification.dayReminder(user, time);
+						}
 					});
 					runChecks.lastDayReminderSent = now;
 				}
