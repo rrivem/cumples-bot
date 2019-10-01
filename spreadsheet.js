@@ -12,10 +12,12 @@ const timeRegex = /(\d+):(\d+)/;
 
 const parseList = (date, list) => {
 	date = new Date(date.values[0][0]);
-	return list.values.filter(i => i[1] && i[1] !== 'Lunch').map(([time, person]) => ({
-		time: new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...timeRegex.exec(time).slice(1, 3)),
-		person
-	}));
+	return list.values
+		.filter(i => timeRegex.test(i[0]) && i[1])
+		.map(([time, person]) => ({
+			time: new Date(date.getFullYear(), date.getMonth(), date.getDate(), ...timeRegex.exec(time).slice(1, 3)),
+			person
+		}));
 };
 
 function getData(auth) {
@@ -32,13 +34,13 @@ function getData(auth) {
 
 			sheets.spreadsheets.values.batchGet(
 				{ auth, spreadsheetId: spreadsheet.id, ranges: [spreadsheet.ranges.people, ...lists] },
-				(err, { valueRanges: [people, day1, list1, day2, list2] }) => {
+				(err, { valueRanges: [people, date, list] }) => {
 					if (err) {
 						return reject(err);
 					}
 					return resolve({
 						people: parsePeople(people),
-						list: [...parseList(day1, list1), ...parseList(day2, list2)]
+						list: parseList(date, list)
 					});
 				}
 			);

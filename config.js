@@ -4,16 +4,16 @@ const base = {
 	spreadsheet: {
 		id: private.spreadsheet.id,
 		ranges: {
-			list: ['[SHEET]!B1', '[SHEET]!B3:D100', '[SHEET]!F1', '[SHEET]!F3:H100'],
-			people: 'Listas!A2:B100'
+			list: ['[SHEET]!A1', '[SHEET]!A:F'],
+			people: 'Personas!A2:B200'
 		}
 	},
 	slack: {
 		host: 'https://slack.com/api',
-		token: private.slack.token
+		...private.slack
 	},
-	minsBeforeNotice: 20,
-	dayReminderHour: 8
+	minsBeforeNotice: 15,
+	dayReminderHour: 0
 };
 
 const configData = {

@@ -17,7 +17,7 @@ if (!runChecks.isSameDate(new Date(), runChecks.lastShouldRunToday)) {
 					!runChecks.isSameDate(now, runChecks.lastDayReminderSent) &&
 					now.getHours() >= config.dayReminderHour
 				) {
-					// notify today is massage day
+					// notify today is the day
 					todayList.forEach(({ time, person }) => {
 						const user = people.find(p => p.name === person);
 						if (user) {

@@ -12,9 +12,8 @@ class NotificationService {
 			.then(slackUser => {
 				if (!slackUser) {
 					throw new Error(`Usuario "${user.name}" <${user.mail}> no encontrado en slack`);
-				} else {
-					return slack.imOpen(slackUser.id);
 				}
+				return `@${slackUser.name}`;
 			})
 			.then(channelId => slack.postMessage(channelId, message))
 			.catch(err => console.error('Error connecting to Slack', err));

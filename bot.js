@@ -1,17 +1,18 @@
 const config = require('./config');
 
-const updateSheet = `actualizá la planilla de masajes: https://docs.google.com/spreadsheets/d/${config.spreadsheet.id}`;
-
 const dayReminderMessage = (user, time) =>
-	`Hola ${user.name}, hoy te tocan los masajes a las ${time.getHours()}:${time
+	`Hola ${user.name}, te anotaste para almorzar a las ${time.getHours()}:${time
 		.getMinutes()
 		.toString()
-		.padStart(2, '0')}.\n\nSi ya sabés que NO podés asistir en ese horario, por favor ${updateSheet}`;
+		.padStart(
+			2,
+			'0'
+		)}. Te pedimos puntualidad con la hora para agilizar el servicio.\n\nSi precisas cambiar tu hora o NO vas a estar, por favor avisá en el canal <#${
+		config.slack.channel
+	}>.`;
 
 const itsTimeMessage = (user, minsToGo) =>
-	`Hola ${
-		user.name
-	}, te aviso que te tocan los masajes en ${minsToGo} minutos.\n\nSi NO podés asistir, por favor avisá en el canal <#C1CNEG2L9> y ${updateSheet}`;
+	`Hola ${user.name}, te aviso que tu almuerzo estará pronto en ${minsToGo} minutos.\n\nSi precisás cambiar la hora por favor avisame personalmente (estoy en la cocina) o en el canal <#${config.slack.channel}>.`;
 
 const footer = '\n\n(Este mensaje fue enviado por un bot)';
 
