@@ -7,18 +7,19 @@ const dayReminderMessage = (user, time) =>
 		.padStart(
 			2,
 			'0'
-		)}. Te pedimos puntualidad con la hora para agilizar el servicio.\n\nSi precisas cambiar tu hora o NO vas a estar, por favor avisá en el canal <#${
-		config.slack.channel
-	}>.`;
+		)}. Te pedimos puntualidad con la hora para agilizar el servicio.\n\nSi precisas cambiar tu hora o NO vas a estar, por favor avisá en el canal [CHANNEL].`;
 
 const itsTimeMessage = (user, minsToGo) =>
-	`Hola ${user.name}, te aviso que tu almuerzo estará pronto en ${minsToGo} minutos.\n\nSi precisás cambiar la hora por favor avisame personalmente (estoy en la cocina) o en el canal <#${config.slack.channel}>.`;
+	`Hola ${user.name}, te aviso que tu almuerzo estará pronto en ${minsToGo} minutos.\n\nSi precisás cambiar la hora por favor avisame personalmente (estoy en la cocina) o en el canal [CHANNEL].`;
 
 const footer = '\n\n(Este mensaje fue enviado por un bot que no habla español)';
 
 class BotService {
 	franchutear(message) {
-		return message.replace(/r/g, 'g').replace(/R/g, 'G');
+		return message
+			.replace(/r/g, 'g')
+			.replace(/R/g, 'G')
+			.replace('[CHANNEL]', `<#${config.slack.channel}>`);
 	}
 
 	dayReminder(user, time) {
