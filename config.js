@@ -8,10 +8,9 @@ const base = {
 			people: 'Personas!A2:B200'
 		}
 	},
-	slack: {
-		host: 'https://slack.com/api',
-		...private.slack
-	},
+	slack: Object.assign({}, private.slack, {
+		host: 'https://slack.com/api'
+	}),
 	minsBeforeNotice: 15,
 	dayReminderHour: 0
 };
