@@ -4,7 +4,7 @@ let googleAuth = require('google-auth-library');
 
 let SCOPES = ['https://www.googleapis.com/auth/spreadsheets']; //you can add more scopes according to your permission need. But in case you chang the scope, make sure you deleted the ~/.credentials/chef-bot.json file
 const TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE) + '/.credentials/'; //the directory where we're going to save the token
-const TOKEN_PATH = TOKEN_DIR + 'chef-bot.json'; //the file which will contain the token
+const TOKEN_PATH = TOKEN_DIR + 'cumples-bot.json'; //the file which will contain the token
 
 class Authentication {
 	authenticate() {
