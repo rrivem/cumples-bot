@@ -4,37 +4,18 @@ const runChecks = require('./run-checks');
 const notification = require('./notification');
 const config = require('./config');
 
-if (!runChecks.isSameDate(new Date(), runChecks.lastShouldRunToday)) {
-	getList().then(({ people, list }) => {
-		const now = new Date();
-		todayList = list.filter(i => runChecks.isSameDate(i.time, now));
+const now = new Date();
+if (!runChecks.isSameDate(now, runChecks.lastRun) && now.getHours() >= config.runHourUTC) {
+	// run once a day
+	getList().then(list => {
+		const birthdaysList = list.filter(i => runChecks.isSameYearDate(i.birthdate, now));
 
-		if (!todayList.length) {
-			runChecks.lastShouldRunToday = now;
+		if (!birthdaysList.length) {
+			runChecks.lastRun = now;
 		} else {
 			notification.setup().then(() => {
-				if (
-					!runChecks.isSameDate(now, runChecks.lastDayReminderSent) &&
-					now.getHours() >= config.dayReminderHour
-				) {
-					// notify today is the day
-					todayList.forEach(({ time, person }) => {
-						const user = people.find(p => p.name === person);
-						if (user) {
-							notification.dayReminder(user, time);
-						}
-					});
-					runChecks.lastDayReminderSent = now;
-				}
-
-				// notify when it's time
-				todayList.forEach(({ time, person }) => {
-					const minsToGo = (time - now) / 60000;
-					if (minsToGo > 0 && minsToGo < config.minsBeforeNotice) {
-						const user = people.find(p => p.name === person);
-						notification.itsTime(user, Math.floor(minsToGo));
-					}
-				});
+				birthdaysList.forEach(person => notification.birthday(person));
+				runChecks.lastRun = now;
 			});
 		}
 	});

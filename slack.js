@@ -1,8 +1,11 @@
 const fetch = require('./fetch');
-const FormData = require('form-data');
 const config = require('./config').slack;
 
 class SlackService {
+	get channels() {
+		return config.channels;
+	}
+
 	setup() {
 		return this.getUsers();
 	}
@@ -35,16 +38,14 @@ class SlackService {
 		return this.getUsers().then(users => users.find(u => u.email === email));
 	}
 
-	postMessage(channelId, message) {
-		const body = {
-			channel: channelId,
-			text: message,
-			as_user: true
-		};
-
+	postMessage(body) {
 		return fetch(config.webhook, {
 			method: 'POST',
-			body: JSON.stringify(body)
+			body: JSON.stringify({
+				fallback: 'No attachments',
+				...body,
+				as_user: true
+			})
 		});
 	}
 }

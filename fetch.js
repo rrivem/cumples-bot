@@ -1,6 +1,5 @@
 const fetch = require('node-fetch');
 const Response = fetch.Response;
-const uuid = require('uuid');
 const config = require('./config');
 const slackConfig = config.slack;
 
@@ -13,16 +12,13 @@ if (config.isProduction) {
 	module.exports = function(url, options) {
 		if (url === slackConfig.webhook) {
 			return new Promise(resolve => {
-				const { channel: channelid, text } = options.body;
+				const { channel: channelid, ...body } = JSON.parse(options.body);
 
 				let channel = channels[channelid];
 				if (!channel) {
 					channel = channels[channelid] = [];
 				}
-				channel.push({
-					to: channelid,
-					text
-				});
+				channel.push(body);
 				console.info(channel);
 
 				let response = {
