@@ -22,7 +22,7 @@ const base = {
 
 const configData = {
 	dev: Object.assign({}, base, {}),
-	prod: Object.assign({}, base, {
+	production: Object.assign({}, base, {
 		isProduction: true
 	})
 };
