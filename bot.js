@@ -8,11 +8,15 @@ const birthdayMessage = (name, user, on) => {
 	return template.replace('[NAME]', name).replace('[ON]', on);
 };
 
-const companyBirthdayMessage = (name, user, years) => {
+const companyBirthdayMessage = (name, user, on, years) => {
 	if (user) {
 		name += ` <@${user}>`;
 	}
-	return messages.companyBirthday.replace('[NAME]', name).replace('[YEARS]', years);
+	const template = on ? messages.companyBirthday.pastDay : messages.companyBirthday.today;
+	return template
+		.replace('[NAME]', name)
+		.replace('[ON]', on)
+		.replace('[YEARS]', years);
 };
 
 class BotService {
@@ -20,8 +24,8 @@ class BotService {
 		return birthdayMessage(name, user, on);
 	}
 
-	companyBirthday(name, user, years) {
-		return companyBirthdayMessage(name, user, years);
+	companyBirthday(name, user, on, years) {
+		return companyBirthdayMessage(name, user, on, years);
 	}
 }
 

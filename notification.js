@@ -21,14 +21,14 @@ class NotificationService {
 		});
 	}
 
-	async companyBirthday({ name, mail }, years) {
+	async companyBirthday({ name, on, mail }, years) {
 		const slackUser = await slack.findUser(mail);
 		return slack.postMessage({
 			channel: slack.channels.companyBirthdays,
 			attachments: [
 				{
 					color: 'good',
-					text: bot.companyBirthday(name, slackUser && slackUser.name, years),
+					text: bot.companyBirthday(name, slackUser && slackUser.name, on, years),
 					image_url: await googleImages.getRandomImage(`birthday ${years}`)
 				}
 			]
