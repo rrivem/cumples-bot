@@ -1,15 +1,14 @@
 const private = require('./config.private.json');
 
 const base = {
-	spreadsheet: {
-		id: private.spreadsheet.id,
+	spreadsheet: Object.assign({}, private.spreadsheet, {
 		ranges: ['URUGUAY!A:E', 'COLOMBIA!A:E']
-	},
+	}),
 	slack: Object.assign({}, private.slack, {
 		host: 'https://slack.com/api'
 	}),
 	googleImages: private.googleImages,
-	runHourUTC: 12
+	runHourUTC: 11
 };
 
 const configData = {
