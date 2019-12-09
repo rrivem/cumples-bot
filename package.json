@@ -4,8 +4,8 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"dev": "node index.js",
-		"debug": "node --inspect-brk index.js"
+		"birthdays": "node birthdays.js",
+		"company-birthdays": "node company-birthdays.js"
 	},
 	"dependencies": {
 		"dotenv": "^8.2.0",

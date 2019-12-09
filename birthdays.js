@@ -13,6 +13,6 @@ const now = new Date();
 	} else {
 		await notification.setup();
 
-		return birthdaysList.map(person => notification.birthday(person));
+		await birthdaysList.map(person => notification.birthday(person));
 	}
 })();

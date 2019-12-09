@@ -20,6 +20,20 @@ class NotificationService {
 			]
 		});
 	}
+
+	async companyBirthday({ name, mail }, years) {
+		const slackUser = await slack.findUser(mail);
+		return slack.postMessage({
+			channel: slack.channels.companyBirthdays,
+			attachments: [
+				{
+					color: 'good',
+					text: bot.companyBirthday(name, slackUser && slackUser.name, years),
+					image_url: await googleImages.getRandomImage(`birthday ${years}`)
+				}
+			]
+		});
+	}
 }
 
 module.exports = new NotificationService();

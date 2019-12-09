@@ -11,7 +11,8 @@ const base = {
 		token: process.env.SLACK_TOKEN,
 		webhook: process.env.SLACK_WEBHOOK,
 		channels: {
-			birthdays: process.env.SLACK_CHANNELS_BIRTHDAY
+			birthdays: process.env.SLACK_CHANNELS_BIRTHDAYS,
+			companyBirthdays: process.env.SLACK_CHANNELS_COMPANYBIRTHDAYS
 		}
 	},
 	googleImages: {

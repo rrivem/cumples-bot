@@ -1,3 +1,4 @@
 {
-	"birthday": "<!here|here>: Saludamos a [NAME] que cumple años en el día de hoy!! Felicidades!"
+	"birthday": "<!here|here>: Saludamos a [NAME] que cumple años en el día de hoy!! Felicidades!",
+	"companyBirthday": "<!here|here>: Saludamos a [NAME] que en el día de hoy cumple [YEARS] años en UruIT group!"
 }
