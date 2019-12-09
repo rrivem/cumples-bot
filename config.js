@@ -17,8 +17,7 @@ const base = {
 	googleImages: {
 		engineKey: process.env.IMAGES_ENGINE_KEY,
 		apiKey: process.env.IMAGES_API_KEY
-	},
-	runHourUTC: 11
+	}
 };
 
 const configData = {
