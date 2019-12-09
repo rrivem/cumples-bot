@@ -1,10 +1,11 @@
 const messages = require('./messages.json');
 
-const birthdayMessage = (name, user) => {
+const birthdayMessage = (name, user, on) => {
 	if (user) {
 		name += ` <@${user}>`;
 	}
-	return messages.birthday.replace('[NAME]', name);
+	const template = on ? messages.birthday.pastDay : messages.birthday.today;
+	return template.replace('[NAME]', name).replace('[ON]', on);
 };
 
 const companyBirthdayMessage = (name, user, years) => {
@@ -15,8 +16,8 @@ const companyBirthdayMessage = (name, user, years) => {
 };
 
 class BotService {
-	birthday(name, user) {
-		return birthdayMessage(name, user);
+	birthday(name, user, on) {
+		return birthdayMessage(name, user, on);
 	}
 
 	companyBirthday(name, user, years) {
