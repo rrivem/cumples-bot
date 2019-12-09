@@ -1,5 +1,5 @@
 {
-	"name": "chef-bot",
+	"name": "cumples-bot",
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
@@ -8,6 +8,7 @@
 		"debug": "node --inspect-brk index.js"
 	},
 	"dependencies": {
+		"dotenv": "^8.2.0",
 		"google-auth-library": "^0.12.0",
 		"googleapis": "^24.0.0",
 		"node-fetch": "^2.0.0"

@@ -1,5 +1,2 @@
 node_modules/
-credentials.json
-config.private.json
-run-checks.json
-yarn.lock
+.env

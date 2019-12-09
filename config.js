@@ -1,13 +1,23 @@
-const private = require('./config.private.json');
+require('./dotenv');
 
 const base = {
-	spreadsheet: Object.assign({}, private.spreadsheet, {
-		ranges: ['URUGUAY!A:E', 'COLOMBIA!A:E']
-	}),
-	slack: Object.assign({}, private.slack, {
-		host: 'https://slack.com/api'
-	}),
-	googleImages: private.googleImages,
+	spreadsheet: {
+		apiKey: process.env.SPREADSHEET_API_KEY,
+		id: process.env.SPREADSHEET_ID,
+		ranges: JSON.parse(process.env.SPREADSHEET_RANGES)
+	},
+	slack: {
+		host: 'https://slack.com/api',
+		token: process.env.SLACK_TOKEN,
+		webhook: process.env.SLACK_WEBHOOK,
+		channels: {
+			birthdays: process.env.SLACK_CHANNELS_BIRTHDAY
+		}
+	},
+	googleImages: {
+		engineKey: process.env.IMAGES_ENGINE_KEY,
+		apiKey: process.env.IMAGES_API_KEY
+	},
 	runHourUTC: 11
 };
 
