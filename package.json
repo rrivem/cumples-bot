@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"scripts": {
 		"birthdays": "node birthdays.js",
-		"company-birthdays": "node company-birthdays.js"
+		"company-birthdays": "node company-birthdays.js",
+		"healthy-breaks": "node healthy-breaks.js"
 	},
 	"dependencies": {
 		"dotenv": "^8.2.0",
