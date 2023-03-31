@@ -16,18 +16,18 @@ class SlackService {
 			return Promise.resolve(self.users);
 		} else {
 			return fetch(`${config.host}/users.list?token=${config.token}`)
-				.then(res => res.json())
-				.then(json =>
+				.then((res) => res.json())
+				.then((json) =>
 					json.members
-						.filter(m => !m.deleted && !!m.profile.email)
-						.map(u => ({
+						.filter((m) => !m.deleted && !!m.profile.email)
+						.map((u) => ({
 							id: u.id,
 							email: u.profile.email,
 							name: u.name,
-							realName: u.real_name
+							realName: u.real_name,
 						}))
 				)
-				.then(result => {
+				.then((result) => {
 					self.users = result;
 					return result;
 				});
@@ -35,7 +35,7 @@ class SlackService {
 	}
 
 	findUser(email) {
-		return this.getUsers().then(users => users.find(u => u.email === email));
+		return this.getUsers().then((users) => users.find((u) => u.email === email));
 	}
 
 	postMessage(body) {
@@ -43,9 +43,10 @@ class SlackService {
 			method: 'POST',
 			body: JSON.stringify({
 				fallback: 'No attachments',
+				as_user: true,
+				link_names: true,
 				...body,
-				as_user: true
-			})
+			}),
 		});
 	}
 }

@@ -1,7 +1,5 @@
-const config = require('./config').spreadsheet;
-
 class Authentication {
-	authenticate() {
+	authenticate(config) {
 		return Promise.resolve(config.apiKey);
 	}
 }

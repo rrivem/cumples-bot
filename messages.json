@@ -6,5 +6,6 @@
 	"companyBirthday": {
 		"today": "<!here|here>: Saludamos a [NAME] que en el día de hoy cumple [YEARS] años en Digital Wire Group!",
 		"pastDay": "<!here|here>: Saludamos a [NAME] que el [ON] cumplió [YEARS] años en Digital Wire Group!"
-	}
+	},
+	"healthyBreak": "@here: Es momento de hacer una *PAUSA SALUDABLE*.\n\nToma un descando y llenate de energia en Cuerpo y Mente."
 }
