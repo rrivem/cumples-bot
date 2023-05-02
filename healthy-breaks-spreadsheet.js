@@ -13,7 +13,7 @@ const parseList = (info) => {
 	return info.slice(1).map((i) => ({
 		date: new Date(i[columns.date]),
 		text: i[columns.text],
-		links: i[columns.links].split('\n').filter((l) => l),
+		links: (i[columns.links] || '').split('\n').filter((l) => l),
 	}));
 };
 
